@@ -32,7 +32,7 @@ class Telegram
             'json' => array_merge(['method' => $name], $body),
         ]);
         $result = json_decode($response->getBody()->getContents(), true);
-        return $result ?? [];
+        return $result['result'] ?? [];
     }
 
     public function getFileUri(string $fileId): string
