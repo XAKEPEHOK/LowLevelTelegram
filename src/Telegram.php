@@ -31,6 +31,7 @@ class Telegram
         $response = $this->client->post('', [
             'json' => array_merge(['method' => $name], $body),
         ]);
+        $response->getBody()->getContents();
         $result = json_decode($response->getBody()->getContents(), true);
         return $result['result'] ?? [];
     }
