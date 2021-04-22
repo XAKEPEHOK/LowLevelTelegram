@@ -26,14 +26,21 @@ class Telegram
         $this->apiKey = $apiKey;
     }
 
-    public function method(string $name, array $body): array
+    /**
+     * @param string $name
+     * @param array $body
+     * @return array|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function method(string $name, array $body)
     {
         $response = $this->client->post('', [
             'json' => array_merge(['method' => $name], $body),
         ]);
-        $response->getBody()->getContents();
-        $result = json_decode($response->getBody()->getContents(), true);
-        return $result['result'] ?? [];
+
+        $content = $response->getBody()->getContents();
+        $result = json_decode($content, true);
+        return $result['result'];
     }
 
     public function getFileUri(string $fileId): string
