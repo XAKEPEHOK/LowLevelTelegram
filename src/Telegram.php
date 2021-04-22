@@ -31,7 +31,8 @@ class Telegram
         $response = $this->client->post('', [
             'json' => array_merge(['method' => $name], $body),
         ]);
-        return json_decode($response->getBody()->getContents(), true)['result'] ?? [];
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result ?? [];
     }
 
     public function getFileUri(string $fileId): string
